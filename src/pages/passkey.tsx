@@ -28,10 +28,14 @@ const Passkey = () => {
 
         const verificationResp = await verifyRegistrationResponse(attResp);
 
-        toast({
-            variant: "success" in verificationResp && verificationResp.success ? "default" : "destructive",
-            title: typeof verificationResp.detail === "string" ? verificationResp.detail : "Something went wrong..."
-        })
+        if (verificationResp?.success) {
+            navigate("/")
+        } else {
+            toast({
+                variant: "destructive",
+                title: String(verificationResp?.detail || "Something went wrong...")
+            })
+        }
     }
 
     return (
